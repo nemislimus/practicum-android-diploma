@@ -4,6 +4,7 @@ open class Response {
     var resultCode = 0
 
     companion object {
+        const val IO_EXCEPTION_CODE = -1
         const val NO_CONNECTION_CODE = -1
         const val SUCCESSFUL_RESPONSE_CODE = 200
         const val INCORRECT_PARAM_ERROR_CODE = 400

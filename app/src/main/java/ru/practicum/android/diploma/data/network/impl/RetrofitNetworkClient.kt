@@ -9,6 +9,7 @@ import ru.practicum.android.diploma.data.network.Response.Companion.BAD_GATEWAY_
 import ru.practicum.android.diploma.data.network.Response.Companion.CAPTCHA_REQUIRED_ERROR
 import ru.practicum.android.diploma.data.network.Response.Companion.INCORRECT_PARAM_ERROR_CODE
 import ru.practicum.android.diploma.data.network.Response.Companion.INTERNAL_SERV_ERROR_CODE
+import ru.practicum.android.diploma.data.network.Response.Companion.IO_EXCEPTION_CODE
 import ru.practicum.android.diploma.data.network.Response.Companion.NOT_FOUND_CODE
 import ru.practicum.android.diploma.data.network.Response.Companion.NO_CONNECTION_CODE
 import ru.practicum.android.diploma.data.network.Response.Companion.SUCCESSFUL_RESPONSE_CODE
@@ -23,6 +24,7 @@ import ru.practicum.android.diploma.data.search.dto.request.VacancyDetailedReque
 import ru.practicum.android.diploma.data.search.dto.request.VacancyRequest
 import ru.practicum.android.diploma.data.search.dto.response.CountryResponse
 import ru.practicum.android.diploma.data.search.dto.response.IndustryResponse
+import java.io.IOException
 
 class RetrofitNetworkClient(
     private val hhSearchApi: HhSearchApi,
@@ -114,8 +116,13 @@ class RetrofitNetworkClient(
                     }
                 }
                 response
+            } catch (e: IOException) {
+                Log.d(
+                    REQUEST_EXCEPTION_TAG,
+                    e.message + " - bad response\n"
+                )
+                Response().apply { resultCode = IO_EXCEPTION_CODE }
             }
-
         }
     }
 
